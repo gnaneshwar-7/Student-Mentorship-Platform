@@ -1,0 +1,1062 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MentorConnect - Student Mentorship Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --primary-color: #4CAF50;
+        --secondary-color: #2C3E50;
+        --accent-color: #ffb74d;
+        --background-light: #F5F7FB;
+        --card-background: #FFFFFF;
+        --text-dark: #1F2933;
+        --border-light: #E0E0E0;
+        --chip-bg: #E8F5E9;
+        --chip-text: #1B5E20;
+        --shadow-soft: 0 10px 30px rgba(0,0,0,0.08);
+        --glass: rgba(255, 255, 255, 0.7);
+    }
+
+    /* DARK THEME */
+    [data-theme="dark"] {
+        --primary-color: #00C853;
+        --secondary-color: #ECEFF1;
+        --accent-color: #FFD54F;
+        --background-light: #101624;
+        --card-background: #161D2F;
+        --text-dark: #ECEFF1;
+        --border-light: #374151;
+        --chip-bg: #1B5E20;
+        --chip-text: #C8E6C9;
+        --shadow-soft: 0 10px 35px rgba(0,0,0,0.7);
+        --glass: rgba(22, 29, 47, 0.85);
+    }
+
+    /* MINT THEME */
+    [data-theme="mint"] {
+        --primary-color: #00BFA6;
+        --secondary-color: #004D40;
+        --accent-color: #FF6E40;
+        --background-light: #E0F7FA;
+        --card-background: #FFFFFF;
+        --text-dark: #00363A;
+        --border-light: #B2EBF2;
+        --chip-bg: #B2DFDB;
+        --chip-text: #004D40;
+        --shadow-soft: 0 10px 30px rgba(0,0,0,0.1);
+        --glass: rgba(255, 255, 255, 0.8);
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+        background: radial-gradient(circle at top left, #dcedc8 0, transparent 45%),
+                    radial-gradient(circle at bottom right, #bbdefb 0, transparent 45%),
+                    var(--background-light);
+        color: var(--text-dark);
+        line-height: 1.6;
+        min-height: 100vh;
+    }
+
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: linear-gradient(120deg, var(--primary-color), var(--accent-color));
+        padding: 18px 0 16px;
+        color: white;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .header-inner {
+        max-width: 1150px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .brand-logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 14px;
+        background: rgba(255,255,255,0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        backdrop-filter: blur(6px);
+    }
+
+    .brand-text h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+    }
+
+    .brand-text span {
+        font-size: 0.82rem;
+        opacity: 0.9;
+    }
+
+    .theme-toggle {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(0,0,0,0.13);
+        padding: 6px;
+        border-radius: 999px;
+        backdrop-filter: blur(10px);
+    }
+
+    .theme-toggle span {
+        font-size: 0.8rem;
+        padding: 0 6px;
+        opacity: 0.9;
+    }
+
+    .theme-toggle button {
+        border: none;
+        outline: none;
+        background: transparent;
+        color: #fff;
+        font-size: 0.75rem;
+        padding: 5px 10px;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.05s;
+    }
+
+    .theme-toggle button.active-theme,
+    .theme-toggle button:hover {
+        background: rgba(255,255,255,0.18);
+        transform: translateY(-1px);
+    }
+
+    .subheader {
+        max-width: 1150px;
+        margin: 12px auto 0;
+        padding: 0 20px 15px;
+        font-size: 0.9rem;
+        opacity: 0.95;
+    }
+
+    .badge-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 8px;
+    }
+
+    .pill {
+        font-size: 0.75rem;
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.4);
+        background: rgba(0,0,0,0.12);
+        color: #fff;
+    }
+
+    .container {
+        max-width: 1150px;
+        margin: 25px auto 35px;
+        padding: 0 20px 30px;
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 22px;
+    }
+
+    .left-column {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .right-column {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .card {
+        background: var(--glass);
+        padding: 22px 22px 20px;
+        border-radius: 18px;
+        box-shadow: var(--shadow-soft);
+        border: 1px solid rgba(255,255,255,0.4);
+        backdrop-filter: blur(12px);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top right, rgba(255,255,255,0.25), transparent 60%);
+        opacity: 0.55;
+        pointer-events: none;
+    }
+
+    .card-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    h2 {
+        color: var(--primary-color);
+        margin-top: 0;
+        margin-bottom: 8px;
+        font-weight: 700;
+        font-size: 1.18rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    h2 span.emoji {
+        font-size: 1.4rem;
+    }
+
+    .card-subtext {
+        font-size: 0.83rem;
+        opacity: 0.9;
+        margin-bottom: 14px;
+    }
+
+    /* Form Elements */
+    input, select, textarea {
+        width: 100%;
+        padding: 10px 11px;
+        margin: 7px 0 10px;
+        font-size: 0.9em;
+        border-radius: 10px;
+        border: 1px solid var(--border-light);
+        background: rgba(255,255,255,0.85);
+        color: var(--text-dark);
+        outline: none;
+        transition: border 0.2s, box-shadow 0.2s, transform 0.05s;
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 70px;
+    }
+
+    input:focus, select:focus, textarea:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px rgba(76,175,80,0.15);
+        transform: translateY(-1px);
+    }
+
+    label {
+        font-size: 0.8rem;
+        font-weight: 500;
+        opacity: 0.9;
+    }
+
+    .row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    button.primary-btn {
+        width: 100%;
+        padding: 11px;
+        margin-top: 6px;
+        font-size: 0.92rem;
+        border-radius: 999px;
+        border: none;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.1s, box-shadow 0.2s, filter 0.15s;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+
+    button.primary-btn:hover {
+        filter: brightness(1.05);
+        box-shadow: 0 8px 22px rgba(0,0,0,0.2);
+    }
+
+    button.primary-btn:active {
+        transform: scale(0.98) translateY(1px);
+        box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    }
+
+    .secondary-btn {
+        padding: 7px 11px;
+        font-size: 0.8rem;
+        border-radius: 999px;
+        border: 1px solid var(--border-light);
+        background: rgba(255,255,255,0.8);
+        cursor: pointer;
+        margin-right: 6px;
+        margin-bottom: 6px;
+        transition: background 0.15s, transform 0.05s, border 0.15s;
+    }
+
+    .secondary-btn:hover {
+        background: var(--chip-bg);
+        color: var(--chip-text);
+        border-color: transparent;
+        transform: translateY(-1px);
+    }
+
+    .message {
+        padding: 8px 10px;
+        margin-top: 8px;
+        font-size: 0.8em;
+        border-radius: 9px;
+        background: #E8F5E9;
+        color: #1B5E20;
+        border: 1px solid rgba(76,175,80,0.25);
+        display: none;
+    }
+
+    .message.show {
+        display: block;
+    }
+
+    .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 6px 0 10px;
+    }
+
+    .chip {
+        padding: 4px 9px;
+        font-size: 0.74rem;
+        border-radius: 999px;
+        background: var(--chip-bg);
+        color: var(--chip-text);
+        border: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .pill-soft {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 9px;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        background: rgba(0,0,0,0.03);
+        border: 1px dashed var(--border-light);
+        margin-top: 10px;
+    }
+
+    .pill-soft span {
+        font-size: 0.85rem;
+    }
+
+    /* Mentors list */
+    .mentors-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 8px;
+        align-items: center;
+    }
+
+    .mentors-toolbar input {
+        margin: 0;
+    }
+
+    .mentors-list {
+        max-height: 270px;
+        overflow-y: auto;
+        padding-right: 4px;
+        margin-top: 8px;
+        scrollbar-width: thin;
+    }
+
+    .mentor-card {
+        border-radius: 14px;
+        padding: 10px 11px;
+        margin-bottom: 10px;
+        border: 1px solid var(--border-light);
+        background: rgba(255,255,255,0.8);
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        font-size: 0.82rem;
+        transition: transform 0.12s, box-shadow 0.15s, border 0.15s;
+        cursor: pointer;
+    }
+
+    .mentor-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        border-color: var(--primary-color);
+    }
+
+    .mentor-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .mentor-name {
+        font-weight: 600;
+    }
+
+    .mentor-tag {
+        font-size: 0.7rem;
+        padding: 3px 7px;
+        border-radius: 999px;
+        background: rgba(76,175,80,0.08);
+    }
+
+    .mentor-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        font-size: 0.74rem;
+        opacity: 0.85;
+    }
+
+    .mentor-meta span {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .mentor-skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-top: 5px;
+        font-size: 0.72rem;
+    }
+
+    .mentor-skills span {
+        padding: 3px 7px;
+        border-radius: 999px;
+        background: rgba(0,0,0,0.04);
+    }
+
+    /* Sessions */
+    .session-list {
+        max-height: 260px;
+        overflow-y: auto;
+        margin-top: 10px;
+        padding-right: 4px;
+        font-size: 0.8rem;
+    }
+
+    .session-card {
+        border-radius: 12px;
+        padding: 9px 10px;
+        margin-bottom: 8px;
+        border: 1px solid var(--border-light);
+        background: rgba(255,255,255,0.85);
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3px;
+    }
+
+    .session-row-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    .session-mentor {
+        font-weight: 600;
+        font-size: 0.88rem;
+    }
+
+    .session-status {
+        font-size: 0.72rem;
+        padding: 3px 7px;
+        border-radius: 999px;
+        background: rgba(76,175,80,0.1);
+    }
+
+    .session-label {
+        opacity: 0.85;
+    }
+
+    .session-time {
+        font-weight: 500;
+    }
+
+    .session-topic {
+        font-size: 0.78rem;
+        opacity: 0.9;
+        margin-top: 2px;
+    }
+
+    /* Tips list */
+    .tips-list {
+        list-style: none;
+        padding-left: 0;
+        margin: 8px 0 0;
+        font-size: 0.82rem;
+    }
+
+    .tips-list li {
+        margin-bottom: 6px;
+        position: relative;
+        padding-left: 16px;
+    }
+
+    .tips-list li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--primary-color);
+        font-size: 1.1rem;
+        line-height: 1;
+    }
+
+    .small-label {
+        font-size: 0.75rem;
+        opacity: 0.9;
+        margin-top: 4px;
+    }
+
+    /* Helpers */
+    .muted {
+        opacity: 0.8;
+    }
+
+    .highlight {
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+
+    .center-text {
+        text-align: center;
+    }
+
+    @media (max-width: 900px) {
+        .container {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 600px) {
+        header {
+            padding-bottom: 12px;
+        }
+
+        .brand-text h1 {
+            font-size: 1.3rem;
+        }
+
+        .header-inner {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .container {
+            margin-top: 18px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+        <div class="brand">
+            <div class="brand-logo">🤝</div>
+            <div class="brand-text">
+                <h1>MentorConnect</h1>
+                <span>Smart mentorship hub for students & mentors</span>
+            </div>
+        </div>
+
+        <div class="theme-toggle">
+            <span>Theme</span>
+            <button data-theme="light" class="active-theme">Light</button>
+            <button data-theme="dark">Dark</button>
+            <button data-theme="mint">Mint</button>
+        </div>
+    </div>
+    <div class="subheader">
+        Plan 1:1 sessions, track bookings and discover mentors by domain — all from a single clean dashboard.
+        <div class="badge-row">
+            <span class="pill">🎯 Project / Career Guidance</span>
+            <span class="pill">📚 Academic Doubts</span>
+            <span class="pill">🌐 Internships & Industry</span>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+
+    <!-- LEFT COLUMN -->
+    <div class="left-column">
+
+        <!-- FIND MENTORS -->
+        <div class="card">
+            <div class="card-content">
+                <h2><span class="emoji">🧑‍🏫</span>Find a Mentor</h2>
+                <p class="card-subtext">Filter mentors by domain, mode and experience. Click a mentor card to auto-fill the booking form.</p>
+
+                <div class="mentors-toolbar">
+                    <input id="searchInput" placeholder="Search by name / skill (e.g., DSA, ML, Web)" />
+                    <select id="domainFilter">
+                        <option value="all">All Domains</option>
+                        <option value="Web Development">Web Development</option>
+                        <option value="Data Science & ML">Data Science & ML</option>
+                        <option value="Core CS / DSA">Core CS / DSA</option>
+                        <option value="Higher Studies / Research">Higher Studies / Research</option>
+                        <option value="Career & Internships">Career & Internships</option>
+                    </select>
+                </div>
+
+                <div class="row">
+                    <div>
+                        <label for="modeFilter">Preferred Mode</label>
+                        <select id="modeFilter">
+                            <option value="all">Any</option>
+                            <option value="Online">Online</option>
+                            <option value="Offline">Offline</option>
+                            <option value="Hybrid">Hybrid</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="experienceFilter">Experience (min years)</label>
+                        <select id="experienceFilter">
+                            <option value="0">Any</option>
+                            <option value="1">1+ yrs</option>
+                            <option value="3">3+ yrs</option>
+                            <option value="5">5+ yrs</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="chips">
+                    <span class="chip">Tip: Try "ML", "React", "GATE", "Resume"</span>
+                    <span class="chip">Click mentor → pre-fill booking form</span>
+                </div>
+
+                <div id="mentorsList" class="mentors-list">
+                    <!-- Mentor cards rendered by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ANNOUNCEMENTS / TIPS -->
+        <div class="card">
+            <div class="card-content">
+                <h2><span class="emoji">💡</span>Mentorship Tips</h2>
+                <p class="card-subtext">Use MentorConnect effectively to make your mentoring sessions more powerful.</p>
+
+                <ul class="tips-list">
+                    <li>Write a clear topic for each booking like <span class="highlight">"Resume review for SDE internships"</span>.</li>
+                    <li>Prepare 3–4 specific questions before your session to use time efficiently.</li>
+                    <li>After each session, update your personal notes/summary in a separate document.</li>
+                    <li>Explore mentors from different domains to plan <span class="highlight">projects, internships and higher studies</span>.</li>
+                    <li>Book follow-up sessions to track your progress month by month.</li>
+                </ul>
+
+                <div class="pill-soft">
+                    <span>📌</span>
+                    <span>Frontend only demo — backend APIs can be plugged in later.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="right-column">
+
+        <!-- BOOK SESSION -->
+        <div class="card">
+            <div class="card-content">
+                <h2><span class="emoji">🗓️</span>Book a Session</h2>
+                <p class="card-subtext">Fill the details below and click “Save Session”. This demo stores your booking in the browser.</p>
+
+                <div class="row">
+                    <div>
+                        <label for="studentName">Your Name</label>
+                        <input id="studentName" placeholder="e.g., B. Gnaneshwar">
+                    </div>
+                    <div>
+                        <label for="studentEmail">Email</label>
+                        <input id="studentEmail" placeholder="e.g., gnaneshwar@sruniv.edu">
+                    </div>
+                </div>
+
+                <label for="mentorSelect">Choose Mentor</label>
+                <select id="mentorSelect">
+                    <!-- Filled by JS -->
+                </select>
+
+                <div class="row">
+                    <div>
+                        <label for="sessionDatetime">Date & Time</label>
+                        <input id="sessionDatetime" type="datetime-local">
+                    </div>
+                    <div>
+                        <label for="sessionMode">Mode</label>
+                        <select id="sessionMode">
+                            <option value="Online">Online</option>
+                            <option value="Offline">Offline</option>
+                            <option value="Hybrid">Hybrid</option>
+                        </select>
+                    </div>
+                </div>
+
+                <label for="sessionTopic">Topic / Agenda</label>
+                <textarea id="sessionTopic" placeholder="e.g., Roadmap for Machine Learning + how to prepare for internships"></textarea>
+
+                <label for="sessionPriority">Priority</label>
+                <div class="chips" id="priorityChips">
+                    <button class="secondary-btn" data-priority="Low">Low</button>
+                    <button class="secondary-btn" data-priority="Medium">Medium</button>
+                    <button class="secondary-btn" data-priority="High">High</button>
+                </div>
+
+                <button class="primary-btn" onclick="saveSession()">Save Session</button>
+                <div id="bookingMsg" class="message"></div>
+            </div>
+        </div>
+
+        <!-- MY SESSIONS -->
+        <div class="card">
+            <div class="card-content">
+                <h2><span class="emoji">📋</span>My Sessions</h2>
+                <p class="card-subtext">All your locally saved sessions are listed here. Refresh = cleared (no backend).</p>
+
+                <div class="chips">
+                    <button class="secondary-btn" onclick="filterSessions('all')">All</button>
+                    <button class="secondary-btn" onclick="filterSessions('Upcoming')">Upcoming</button>
+                    <button class="secondary-btn" onclick="filterSessions('Completed')">Completed</button>
+                </div>
+
+                <div id="sessionList" class="session-list">
+                    <!-- Session cards rendered by JS -->
+                </div>
+
+                <p class="small-label muted">Status is auto-calculated using session date & current time.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // ---------------- THEME SWITCHER ----------------
+    const rootElement = document.documentElement;
+    const themeButtons = document.querySelectorAll('.theme-toggle button');
+
+    themeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const theme = btn.getAttribute('data-theme');
+            rootElement.setAttribute('data-theme', theme);
+
+            themeButtons.forEach(b => b.classList.remove('active-theme'));
+            btn.classList.add('active-theme');
+        });
+    });
+
+    // ---------------- MOCK MENTORS DATA ----------------
+    const mentors = [
+        {
+            id: 1,
+            name: "Dr. Ananya Rao",
+            domain: "Data Science & ML",
+            mode: "Online",
+            experience: 6,
+            title: "Associate Professor, CSE",
+            skills: ["Python", "ML", "Deep Learning", "Research Papers"],
+            rating: 4.9,
+            slots: "Wed, Fri evenings"
+        },
+        {
+            id: 2,
+            name: "Rahul Verma",
+            domain: "Web Development",
+            mode: "Hybrid",
+            experience: 4,
+            title: "Full Stack Engineer",
+            skills: ["React", "Node.js", "MongoDB", "REST APIs"],
+            rating: 4.7,
+            slots: "Sat, Sun",
+        },
+        {
+            id: 3,
+            name: "Prof. K. Meenakshi",
+            domain: "Core CS / DSA",
+            mode: "Offline",
+            experience: 10,
+            title: "Professor, Algorithms",
+            skills: ["DSA", "C++", "Competitive Programming", "GATE"],
+            rating: 4.8,
+            slots: "Weekday mornings"
+        },
+        {
+            id: 4,
+            name: "Sandeep Kulkarni",
+            domain: "Career & Internships",
+            mode: "Online",
+            experience: 5,
+            title: "Senior SDE, Product Based",
+            skills: ["Resume", "Interviews", "System Design", "Internships"],
+            rating: 4.9,
+            slots: "Weekday nights"
+        },
+        {
+            id: 5,
+            name: "Dr. Nikhita Sharma",
+            domain: "Higher Studies / Research",
+            mode: "Online",
+            experience: 7,
+            title: "Research Mentor",
+            skills: ["SOP Review", "Research Proposals", "MS Abroad", "Paper Writing"],
+            rating: 4.8,
+            slots: "Flexible slots"
+        }
+    ];
+
+    let sessions = [];
+    let activePriority = "";
+
+    const mentorsListEl = document.getElementById('mentorsList');
+    const mentorSelectEl = document.getElementById('mentorSelect');
+    const bookingMsgEl = document.getElementById('bookingMsg');
+    const sessionListEl = document.getElementById('sessionList');
+
+    const searchInputEl = document.getElementById('searchInput');
+    const domainFilterEl = document.getElementById('domainFilter');
+    const modeFilterEl = document.getElementById('modeFilter');
+    const experienceFilterEl = document.getElementById('experienceFilter');
+
+    // ---------------- RENDER MENTORS ----------------
+    function renderMentors() {
+        const query = searchInputEl.value.trim().toLowerCase();
+        const domain = domainFilterEl.value;
+        const mode = modeFilterEl.value;
+        const exp = parseInt(experienceFilterEl.value, 10) || 0;
+
+        mentorsListEl.innerHTML = "";
+
+        const filtered = mentors.filter(m => {
+            const matchDomain = domain === "all" || m.domain === domain;
+            const matchMode = mode === "all" || m.mode === mode;
+            const matchExp = m.experience >= exp;
+            const text = (
+                m.name + " " +
+                m.domain + " " +
+                m.title + " " +
+                m.skills.join(" ")
+            ).toLowerCase();
+            const matchQuery = !query || text.includes(query);
+            return matchDomain && matchMode && matchExp && matchQuery;
+        });
+
+        if (filtered.length === 0) {
+            mentorsListEl.innerHTML = `<p class="muted" style="font-size:0.8rem;">No mentors found for given filters.</p>`;
+            return;
+        }
+
+        filtered.forEach(m => {
+            const card = document.createElement('div');
+            card.className = 'mentor-card';
+            card.onclick = () => selectMentorForBooking(m.id);
+
+            card.innerHTML = `
+                <div class="mentor-header">
+                    <span class="mentor-name">${m.name}</span>
+                    <span class="mentor-tag">${m.domain}</span>
+                </div>
+                <div class="mentor-meta">
+                    <span>⭐ ${m.rating.toFixed(1)}</span>
+                    <span>⏳ ${m.experience}+ yrs</span>
+                    <span>📍 ${m.mode}</span>
+                    <span>🎓 ${m.title}</span>
+                </div>
+                <div class="mentor-skills">
+                    ${m.skills.slice(0,4).map(s => `<span>${s}</span>`).join("")}
+                </div>
+                <div class="small-label muted" style="margin-top:4px;">
+                    Available: ${m.slots}
+                </div>
+            `;
+            mentorsListEl.appendChild(card);
+        });
+    }
+
+    function selectMentorForBooking(id) {
+        mentorSelectEl.value = String(id);
+        showBookingMessage(`Selected mentor: ${getMentorName(id)} pre-filled in booking form.`, false);
+    }
+
+    function getMentorName(id) {
+        const m = mentors.find(x => x.id === Number(id));
+        return m ? m.name : "Unknown";
+    }
+
+    // ---------------- MENTOR DROPDOWN ----------------
+    function populateMentorDropdown() {
+        mentorSelectEl.innerHTML = mentors.map(m =>
+            `<option value="${m.id}">${m.name} — ${m.domain}</option>`
+        ).join("");
+    }
+
+    // ---------------- PRIORITY CHIPS ----------------
+    const priorityChips = document.getElementById('priorityChips');
+    priorityChips.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            activePriority = btn.getAttribute('data-priority');
+            priorityChips.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            btn.style.background = 'var(--primary-color)';
+            btn.style.color = '#fff';
+            priorityChips.querySelectorAll('button').forEach(b => {
+                if (b !== btn) {
+                    b.style.background = 'rgba(255,255,255,0.8)';
+                    b.style.color = 'inherit';
+                }
+            });
+        });
+    });
+
+    // ---------------- SAVE SESSION (FRONTEND ONLY) ----------------
+    function saveSession() {
+        const name = document.getElementById('studentName').value.trim();
+        const email = document.getElementById('studentEmail').value.trim();
+        const mentorId = mentorSelectEl.value;
+        const datetime = document.getElementById('sessionDatetime').value;
+        const mode = document.getElementById('sessionMode').value;
+        const topic = document.getElementById('sessionTopic').value.trim();
+        const priority = activePriority || "Medium";
+
+        if (!name || !email || !mentorId || !datetime || !topic) {
+            showBookingMessage("Please fill all fields (name, email, mentor, date & topic).", true);
+            return;
+        }
+
+        const newSession = {
+            id: Date.now(),
+            studentName: name,
+            email,
+            mentorId: Number(mentorId),
+            datetime,
+            mode,
+            topic,
+            priority
+        };
+
+        sessions.push(newSession);
+        renderSessions("all");
+        showBookingMessage("Session saved locally! (No backend yet).", false);
+
+        // clear topic only
+        document.getElementById('sessionTopic').value = "";
+    }
+
+    function showBookingMessage(msg, isError) {
+        bookingMsgEl.innerText = msg;
+        bookingMsgEl.classList.add('show');
+        bookingMsgEl.style.background = isError ? '#FFEBEE' : '#E8F5E9';
+        bookingMsgEl.style.color = isError ? '#C62828' : '#1B5E20';
+    }
+
+    // ---------------- SESSIONS RENDER ----------------
+    function getSessionStatus(datetime) {
+        const now = new Date();
+        const sessionTime = new Date(datetime);
+        if (isNaN(sessionTime.getTime())) return "Unknown";
+
+        return sessionTime > now ? "Upcoming" : "Completed";
+    }
+
+    function renderSessions(filterStatus = "all") {
+        sessionListEl.innerHTML = "";
+
+        if (sessions.length === 0) {
+            sessionListEl.innerHTML = `<p class="muted" style="font-size:0.8rem;">No sessions yet. Book your first session using the form above.</p>`;
+            return;
+        }
+
+        const filtered = sessions.filter(s => {
+            const status = getSessionStatus(s.datetime);
+            return filterStatus === "all" || status === filterStatus;
+        });
+
+        if (filtered.length === 0) {
+            sessionListEl.innerHTML = `<p class="muted" style="font-size:0.8rem;">No ${filterStatus.toLowerCase()} sessions to show.</p>`;
+            return;
+        }
+
+        filtered.sort((a, b) => new Date(a.datetime) - new Date(b.datetime));
+
+        filtered.forEach(s => {
+            const status = getSessionStatus(s.datetime);
+            const mName = getMentorName(s.mentorId);
+            const dateObj = new Date(s.datetime);
+            const niceDate = isNaN(dateObj.getTime())
+                ? s.datetime
+                : dateObj.toLocaleString(undefined, {
+                    dateStyle: "medium",
+                    timeStyle: "short"
+                });
+
+            const card = document.createElement('div');
+            card.className = 'session-card';
+            card.innerHTML = `
+                <div class="session-row-top">
+                    <span class="session-mentor">With ${mName}</span>
+                    <span class="session-status">${status} • ${s.priority}</span>
+                </div>
+                <div class="session-time">
+                    ⏰ <span>${niceDate}</span> • <span>${s.mode}</span>
+                </div>
+                <div class="session-topic">
+                    🔖 ${s.topic}
+                </div>
+            `;
+            sessionListEl.appendChild(card);
+        });
+    }
+
+    function filterSessions(status) {
+        renderSessions(status);
+    }
+
+    // ---------------- EVENTS ----------------
+    searchInputEl.addEventListener('input', renderMentors);
+    domainFilterEl.addEventListener('change', renderMentors);
+    modeFilterEl.addEventListener('change', renderMentors);
+    experienceFilterEl.addEventListener('change', renderMentors);
+
+    // ---------------- INIT ----------------
+    document.addEventListener('DOMContentLoaded', () => {
+        populateMentorDropdown();
+        renderMentors();
+        renderSessions();
+    });
+</script>
+
+</body>
+</html>
